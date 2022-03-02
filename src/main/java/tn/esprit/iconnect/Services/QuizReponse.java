@@ -8,14 +8,12 @@ import java.util.List;
 
 public interface QuizReponse {
 
-    List<QuizReponses> getQuizReponseByQuiz(int idquiz);
+QuizReponses addQuizReponse(QuizReponses quizReponse);
+QuizReponses updateQuizReponse(int idQuizReponse ,QuizReponses quizReponses);
+void deleteQuizRepById(int id);
+void deleteAll();
 
-    List<QuizReponses> getCorrectAnsowerByQuiz(Boolean etat,Quiz quiz);
-
-    Collection<QuizReponses> addQuizReponse(List<QuizReponses>  quizReponses, int id);
-
-
-    List<QuizReponses> deleteQuizReponseByQuiz(int quiz);
+List<QuizReponses> getAllQuizRep();
 
 
 

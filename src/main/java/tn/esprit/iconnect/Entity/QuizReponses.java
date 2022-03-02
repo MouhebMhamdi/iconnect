@@ -1,6 +1,7 @@
 package tn.esprit.iconnect.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@JsonRootName(value = "QuizReponses")
 public class QuizReponses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,13 +21,14 @@ public class QuizReponses {
     private String reponse;
     private boolean etat;
 
-    // this is a Bidirectionnel relation widh the Quiz entity
-    @ToString.Exclude
-    @ManyToOne( cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
-    private Quiz quiz;
+
 
     // this is a Bidirectionnel relation widh the Evaluation entity
     @OneToOne(mappedBy = "quiz",cascade = CascadeType.ALL)
     @JsonIgnore
     private Evaluation evaluation;
+
+    @ManyToOne
+    @JsonIgnore
+    private QuizQuestion quizQuestion;
 }

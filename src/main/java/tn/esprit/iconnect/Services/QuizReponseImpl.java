@@ -19,32 +19,34 @@ public class QuizReponseImpl implements QuizReponse {
     @Autowired
     QuizRepository quizRepository;
 
+
     @Override
-    public List<QuizReponses> getQuizReponseByQuiz(int idquiz) {
-        Quiz q=quizRepository.findById(idquiz).get();
-        return quizReponsesRepository.getQuizReponsesByQuiz(q);
+    public QuizReponses addQuizReponse(QuizReponses quizReponse) {
+
+        return quizReponsesRepository.save(quizReponse);
     }
 
     @Override
-    public List<QuizReponses> getCorrectAnsowerByQuiz(Boolean etat, Quiz quiz) {
-        return quizReponsesRepository.getQuizReponsesByEtatAndQuiz(true,quiz);
+    public QuizReponses updateQuizReponse(int idQuizReponse, QuizReponses quizReponses) {
+        QuizReponses quizReponses1=quizReponsesRepository.findById(idQuizReponse).get();
+        if(quizReponses.getReponse()!=null) quizReponses1.setReponse(quizReponses.getReponse());
+        if(quizReponses.getQuizQuestion()!=null)quizReponses1.setQuizQuestion(quizReponses.getQuizQuestion());
+        if(quizReponses.getEvaluation()!=null)quizReponses1.setEvaluation(quizReponses.getEvaluation());
+        return quizReponsesRepository.save(quizReponses1);
     }
 
     @Override
-    public Collection<QuizReponses> addQuizReponse(List<QuizReponses> quizReponses, int id) {
+    public void deleteQuizRepById(int id) {
+        quizReponsesRepository.deleteById(id);
+    }
 
-        for (QuizReponses q:quizReponses) {
-            q.setQuiz(quizRepository.findById(id).get());
-            quizReponsesRepository.save(q);
-        }
+    @Override
+    public void deleteAll() {
+    quizReponsesRepository.deleteAll();
+    }
+
+    @Override
+    public List<QuizReponses> getAllQuizRep() {
         return quizReponsesRepository.findAll();
-    }
-
-
-
-
-    @Override
-    public List<QuizReponses> deleteQuizReponseByQuiz(int idquiz) {
-        return quizReponsesRepository.deleteAllByQuiz(quizRepository.findById(idquiz).get());
     }
 }

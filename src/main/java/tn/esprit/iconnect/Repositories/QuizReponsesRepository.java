@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public interface QuizReponsesRepository extends JpaRepository<QuizReponses, Integer> {
-    List<QuizReponses> getQuizReponsesByQuiz(Quiz quiz);
-    List<QuizReponses> getQuizReponsesByEtatAndQuiz(Boolean etat,Quiz quiz);
-    List<QuizReponses> deleteAllByQuiz(Quiz quiz);
 }

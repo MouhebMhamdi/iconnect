@@ -21,24 +21,29 @@ public class QuizReponseController {
     @Autowired
     private QuizRepository quizRepository;
 
-    @GetMapping("/findQuizReponse/{idQuiz}")
-    public List<QuizReponses> getQuizReponseByQuiz(@PathVariable int idQuiz){
-       return  quizReponse.getQuizReponseByQuiz(idQuiz);
+    @PostMapping("/add")
+    public QuizReponses addquizReponses(@RequestBody QuizReponses quizReponses){
+        return quizReponse.addQuizReponse(quizReponses);
     }
 
-    @GetMapping("/correctAnswer/{idQuiz}")
-    public List<QuizReponses> getCorrectAnswerByQuiz(@PathVariable int idQuiz){
-       return  quizReponse.getCorrectAnsowerByQuiz(true,quizRepository.findById(idQuiz).get());
+    @PutMapping("/update/{id}")
+    public QuizReponses updateQuizRep(@RequestBody QuizReponses quizReponses,@PathVariable int id){
+        return quizReponse.updateQuizReponse(id,quizReponses);
     }
-    @PostMapping("/addQuizReponse/{idQuiz}")
-    public Collection<QuizReponses> addQuizReponse(@RequestBody List<QuizReponses> quizReponses, @PathVariable int idQuiz){
-        return  quizReponse.addQuizReponse(quizReponses,idQuiz);
+    @GetMapping("/all")
+    public List<QuizReponses> getAllQuizRep(){
+        return quizReponse.getAllQuizRep();
     }
-    @Transactional
-    @DeleteMapping("/delete/{idquiz}")
-     public List<QuizReponses> deleteQuizReponse(@PathVariable int idquiz){
-        return quizReponse.deleteQuizReponseByQuiz(idquiz);
+    @DeleteMapping("/{id}")
+    public List<QuizReponses> deleteById(@PathVariable int id){
+        quizReponse.deleteQuizRepById(id);
+        return this.getAllQuizRep();
     }
 
+    @DeleteMapping("/all")
+    public String deleteAll(){
+        quizReponse.deleteAll();
+        return "All quiz reponse deleted";
+    }
 
 }

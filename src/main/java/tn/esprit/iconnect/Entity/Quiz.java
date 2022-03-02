@@ -1,6 +1,7 @@
 package tn.esprit.iconnect.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonRootName(value = "Quiz")
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +30,7 @@ public class Quiz {
     // this is a Bidirectionnel relation widh the QuizReponses entity
     @OneToMany(mappedBy = "quiz",cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<QuizReponses> quizReponses;
+    private List<QuizQuestion> quizQuestions;
 
 
 }
